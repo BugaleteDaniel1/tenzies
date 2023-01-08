@@ -41,17 +41,17 @@ function App() {
   }
 
   function restart() {
-    setRandomNumbers((prevRandomNumbers) => defaultStart);
-    setEndGame((prevEndGame) => false);
+    setRandomNumbers(defaultStart);
+    setEndGame(false);
   }
 
   useEffect(() => {
-    let flsSelected = randomNumbers.some((el: any) => !el.selected);
-    let diffNums = randomNumbers.some((el: any) => el.number !== el.number);
-    if (flsSelected && !diffNums) {
-      return;
-    } else {
-      setEndGame((prevEndGame) => true);
+    let flsSelected = randomNumbers.every((el: any) => el.selected);
+    let firstValue = randomNumbers[0].number;
+    let sameNr = randomNumbers.every((el: any) => el.number === firstValue);
+    console.log("isSelected", flsSelected, "sameNr", sameNr);
+    if (flsSelected && sameNr) {
+      setEndGame(true);
     }
   }, [randomNumbers]);
 
